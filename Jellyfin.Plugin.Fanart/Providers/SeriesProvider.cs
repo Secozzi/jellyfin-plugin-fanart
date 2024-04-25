@@ -20,6 +20,7 @@ using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using MediaBrowser.Model.Providers;
+using Microsoft.Extensions.Logging;
 
 namespace Jellyfin.Plugin.Fanart.Providers
 {
@@ -29,13 +30,16 @@ namespace Jellyfin.Plugin.Fanart.Providers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IFileSystem _fileSystem;
 
+        private readonly ILogger<SeriesProvider> _logger;
+
         private readonly SemaphoreSlim _ensureSemaphore = new SemaphoreSlim(1, 1);
 
-        public SeriesProvider(IServerConfigurationManager config, IHttpClientFactory httpClientFactory, IFileSystem fileSystem)
+        public SeriesProvider(IServerConfigurationManager config, IHttpClientFactory httpClientFactory, IFileSystem fileSystem, ILogger<SeriesProvider> logger)
         {
             _config = config;
             _httpClientFactory = httpClientFactory;
             _fileSystem = fileSystem;
+            _logger = logger;
 
             Current = this;
         }
@@ -66,6 +70,56 @@ namespace Jellyfin.Plugin.Fanart.Providers
             };
         }
 
+        public class JsonParser
+        {
+            public static T ParseJson<T>(string jsonString)
+            {
+                T result = JsonSerializer.Deserialize<T>(jsonString);
+                return result;
+            }
+        }
+
+        internal async Task<string> GetTvdbFromAnilist(int anilistId, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            try {
+                var dataUrl = "https://raw.githubusercontent.com/Fribb/anime-lists/master/anime-list-full.json";
+                var httpClient = _httpClientFactory.CreateClient(NamedClient.Default);
+                var httpResponse = await httpClient.GetAsync(new Uri(dataUrl), cancellationToken).ConfigureAwait(false);
+                var resonseData = await httpResponse.Content.ReadAsStringAsync();
+                int? tvdbId = null;
+
+                try
+                {
+                    var mediaIds = JsonSerializer.Deserialize<List<MediaId>>(resonseData);
+                    if (mediaIds != null)
+                    {
+                        foreach (var mediaId in mediaIds)
+                        {
+                            if (mediaId.AnilistId == anilistId)
+                            {
+                                tvdbId = mediaId.TheTvdbId;
+                            }
+                        }
+                    }
+                }
+                catch (JsonException e)
+                {
+                    _logger.LogError($"JSONERROR: {e.Message}");
+                }
+
+                if (tvdbId == null) {
+                    return null;
+                } else {
+                    return tvdbId.ToString();
+                }
+            }  catch (HttpRequestException e) {
+                _logger.LogError($"HTTPERROR: {e.Message}");
+                return null;
+            }
+        }
+
         /// <inheritdoc />
         public async Task<IEnumerable<RemoteImageInfo>> GetImages(BaseItem item, CancellationToken cancellationToken)
         {
@@ -73,7 +127,8 @@ namespace Jellyfin.Plugin.Fanart.Providers
 
             var series = (Series)item;
 
-            var id = series.GetProviderId(MetadataProvider.Tvdb);
+            var anilistId = int.Parse(item.GetProviderId("AniList"));
+            var id = await GetTvdbFromAnilist(anilistId, cancellationToken);
 
             if (!string.IsNullOrEmpty(id))
             {
