@@ -1,0 +1,20 @@
+[
+    {
+      "category": "Metadata",
+      "guid": "e2c780d0-9158-4bd8-bd01-8c16d05bb674",
+      "name": "Fanart",
+      "description": "Scrape poster images for movies, shows, and artists in your library.\n",
+      "owner": "jellyfin",
+      "overview": "Scrape poster images from Fanart",
+      "versions": [
+        {
+          "checksum": "207ca52f7b5a0469a8dfca08c583c499",
+          "changelog": "1. Add anilist support",
+          "sourceUrl": "https://github.com/Secozzi/jellyfin-plugin-fanart/releases/download/10.1.0.0/10.8.10.-.fanart_10.1.0.0.zip",
+          "timestamp": "2024-04-25 00:00:00",
+          "version": "10.1.0.0"
+        }
+      ]
+    }
+  ]
+  
