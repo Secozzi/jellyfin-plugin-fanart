@@ -13,6 +13,13 @@
           "sourceUrl": "https://github.com/Secozzi/jellyfin-plugin-fanart/releases/download/10.1.0.0/10.8.10.-.fanart_10.1.0.0.zip",
           "timestamp": "2024-04-25 00:00:00",
           "version": "10.1.0.0"
+        },
+        {
+          "checksum": "9db6deabd27c27afce438d143cae256d",
+          "changelog": "1. Update to 10.9",
+          "sourceUrl": "https://github.com/Secozzi/jellyfin-plugin-fanart/releases/download/11.1.0.0/10.9.1.-.fanart_11.1.0.0.zip",
+          "timestamp": "2024-05-13 00:00:00",
+          "version": "11.1.0.0"
         }
       ]
     }
