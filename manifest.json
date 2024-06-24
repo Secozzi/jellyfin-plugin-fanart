@@ -10,7 +10,7 @@
         {
           "checksum": "c2b60704a97414e56e3edfcad58f323d",
           "changelog": "1. Update guid",
-          "sourceUrl": "https://github.com/Secozzi/jellyfin-plugin-fanart/releases/download/untagged-8e9d240c66f7af43321c/10.9.6.-.fanart_11.2.0.0.zip",
+          "sourceUrl": "https://github.com/Secozzi/jellyfin-plugin-fanart/releases/download/11.2.0.0/10.9.6.-.fanart_11.2.0.0.zip",
           "timestamp": "2024-06-24 00:00:00",
           "version": "11.2.0.0"
         }
