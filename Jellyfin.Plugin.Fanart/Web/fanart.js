@@ -1,5 +1,5 @@
 const FanartConfig = {
-    pluginUniqueId: '170a157f-ac6c-437a-abdd-ca9c25cebd39'
+    pluginUniqueId: '3a48e016-2720-4042-bb2a-deda48e1ceb2'
 };
 
 export default function (view) {

@@ -1,5 +1,5 @@
 name: "Fanart"
-guid: "170a157f-ac6c-437a-abdd-ca9c25cebd39"
+guid: "3a48e016-2720-4042-bb2a-deda48e1ceb2"
 imageUrl: "https://repo.jellyfin.org/releases/plugin/images/jellyfin-plugin-fanart.png"
 version: 11
 targetAbi: "10.9.0.0"
@@ -7,8 +7,8 @@ framework: "net8.0"
 overview: "Scrape poster images from Fanart"
 description: "Scrape poster images for movies, shows, and artists in your library."
 category: "Metadata"
-owner: "jellyfin"
+owner: "Secozzi"
 artifacts:
   - "Jellyfin.Plugin.Fanart.dll"
 changelog: |-
-  - 10.9 (#47) @crobibero
+  - Update guid

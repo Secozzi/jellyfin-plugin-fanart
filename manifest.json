@@ -4,7 +4,7 @@
       "guid": "e2c780d0-9158-4bd8-bd01-8c16d05bb674",
       "name": "Fanart",
       "description": "Scrape poster images for movies, shows, and artists in your library.\n",
-      "owner": "jellyfin",
+      "owner": "Secozzi",
       "overview": "Scrape poster images from Fanart",
       "versions": [
         {
